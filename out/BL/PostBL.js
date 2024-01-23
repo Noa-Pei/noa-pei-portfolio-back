@@ -24,9 +24,9 @@ class PostBL {
             }
         });
     }
-    getALLPosts(options) {
+    getALLPosts(text, from, to) {
         return __awaiter(this, void 0, void 0, function* () {
-            const Posts = yield this.postDataAccess.getALLPosts(options);
+            const Posts = yield this.postDataAccess.getALLPosts(text, from, to);
             if (!Posts) {
                 throw new Error(`Posts not found`);
             }
@@ -60,6 +60,15 @@ class PostBL {
             catch (error) {
                 throw new Error(`Unable to delete Post: ${error.message}`);
             }
+        });
+    }
+    countAllPosts() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const countPosts = yield this.postDataAccess.countAllPosts();
+            if (!countPosts) {
+                throw new Error(`No posts found`);
+            }
+            return countPosts;
         });
     }
 }

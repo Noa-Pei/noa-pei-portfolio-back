@@ -34,12 +34,10 @@ class PostController {
     getALLPosts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const options = {
-                    text: req.query.text,
-                    from: parseInt(req.query.from),
-                    to: parseInt(req.query.to)
-                };
-                const posts = yield this.postBL.getALLPosts(options);
+                const text = req.query.text;
+                const from = parseInt(req.query.from);
+                const to = parseInt(req.query.to);
+                const posts = yield this.postBL.getALLPosts(text, from, to);
                 res.status(200).send(posts);
             }
             catch (error) {
@@ -78,6 +76,17 @@ class PostController {
             try {
                 yield this.postBL.deletePost(postId);
                 res.status(200).send({ message: `Post ${postId} deleted successfully` });
+            }
+            catch (error) {
+                res.status(400).send(error.message);
+            }
+        });
+    }
+    countAllPosts(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const postsCount = yield this.postBL.getALLPosts();
+                res.status(200).send(postsCount);
             }
             catch (error) {
                 res.status(400).send(error.message);

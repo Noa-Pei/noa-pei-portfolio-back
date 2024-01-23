@@ -1,11 +1,12 @@
-// import { Pool } from 'pg';
 
-// const pool = new Pool({
-//     user: 'postgres',
-//     host: 'localhost',
-//     database: 'postgres',
-//     password: '123456',
-//     port: 5432,
-// });
+import { Pool } from 'pg';
 
-// export default pool;
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'noa-pei-portfolio',
+    password: 'watermelon',
+    port: 5432,
+});
+
+export default pool;

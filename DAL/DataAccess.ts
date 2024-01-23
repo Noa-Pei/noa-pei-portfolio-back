@@ -3,5 +3,6 @@ export interface DataAccess<Post> {
     deletePost(postId: number): Promise<void>,
     updatePost(postId: number, updateData: Partial<Post>): Promise<void>,
     getPost(postId: number): Promise<Post>,
-    getALLPosts(options?: {text?: string; from?: number; to?: number;}): Promise<Partial<Post>[]>
+    getALLPosts(text?: string, from?: number, to?: number): Promise<Partial<Post>[]>,
+    countAllPosts(): Promise<Number>
 }

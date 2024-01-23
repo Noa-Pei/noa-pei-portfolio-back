@@ -16,8 +16,8 @@ export class PostBL {
         }
     }
 
-    async getALLPosts(options?: {text?: string; from?: number; to?: number;}): Promise<Partial<Post>[]> {
-        const Posts = await this.postDataAccess.getALLPosts(options);
+    async getALLPosts(text?: string, from?: number, to?: number): Promise<Partial<Post>[]> {
+        const Posts = await this.postDataAccess.getALLPosts(text, from, to);
         if (!Posts) {
             throw new Error(`Posts not found`);
         }
@@ -46,5 +46,13 @@ export class PostBL {
         } catch (error) {
             throw new Error(`Unable to delete Post: ${(error as Error).message}`);
         }
+    }
+
+    async countAllPosts(): Promise<Number> {
+        const countPosts = await this.postDataAccess.countAllPosts();
+        if (!countPosts) {
+            throw new Error(`No posts found`);
+        }
+        return countPosts;
     }
 }
