@@ -25,5 +25,5 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () { r
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.getPost(req, res); }));
 router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.updatePost(req, res); }));
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.deletePost(req, res); }));
-router.get('/:count', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.countAllPosts(req, res); }));
+router.get('/count', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.countAllPosts(req, res); }));
 exports.default = router;

@@ -85,8 +85,9 @@ class PostController {
     countAllPosts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const postsCount = yield this.postBL.getALLPosts();
-                res.status(200).send(postsCount);
+                const postsCount = yield this.postBL.countAllPosts();
+                console.log(postsCount);
+                res.status(200).send({ postsCount });
             }
             catch (error) {
                 res.status(400).send(error.message);

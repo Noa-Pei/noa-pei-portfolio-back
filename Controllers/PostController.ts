@@ -71,9 +71,9 @@ export class PostController {
 
     async countAllPosts(req: Request, res: Response): Promise<void> {
         try {      
-            const postsCount = await this.postBL.getALLPosts();
-        
-            res.status(200).send(postsCount);
+            const postsCount = await this.postBL.countAllPosts();
+            console.log(postsCount)
+            res.status(200).send({postsCount});
         
         } catch (error) {
             res.status(400).send((error as Error).message); 

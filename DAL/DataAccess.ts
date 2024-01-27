@@ -6,3 +6,4 @@ export interface DataAccess<Post> {
     getALLPosts(text?: string, from?: number, to?: number): Promise<Partial<Post>[]>,
     countAllPosts(): Promise<Number>
 }
+

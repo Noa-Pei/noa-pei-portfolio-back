@@ -2,6 +2,7 @@ import { log } from 'console';
 import pool from '../db';
 import Post from '../Models/Post';
 import { DataAccess } from './DataAccess';
+import {QueryResultRow} from 'pg';
 
 export class PostDataAccessSQL implements DataAccess <Post>{
 
@@ -19,9 +20,6 @@ export class PostDataAccessSQL implements DataAccess <Post>{
         let result = await pool.query(query);
         // let limit, offset;
 
-        if (result.rows.length === 0) {
-            throw new Error(`No posts found`);
-        }
 
         // Filtering and Paging
         if(text && (from || to)) {
@@ -29,7 +27,7 @@ export class PostDataAccessSQL implements DataAccess <Post>{
         }
         
         // Paging
-        if (from || to && !text) {
+        if ((from || to) && !text) {
             if(from === undefined || to === undefined) {
                 throw new Error('from and to must both be defined for paging');
               }
@@ -42,6 +40,11 @@ export class PostDataAccessSQL implements DataAccess <Post>{
         if (text && !(from || to)) {
             result = (await pool.query(queryFilter, [`%${text}%`]));   
         }
+
+        if (result.rows.length === 0) {
+            throw new Error(`No posts found`);
+        }
+
         return result.rows;
     }
 
@@ -86,7 +89,8 @@ export class PostDataAccessSQL implements DataAccess <Post>{
 
     async countAllPosts(): Promise<Number> {
         const query = 'SELECT COUNT(*) FROM post';
-        const result = await pool.query(query);
-        return +result;
+        const result = await pool.query(query) as QueryResultRow;;
+        console.log(result.row);
+        return result.count;
     }
 }

@@ -29,15 +29,12 @@ class PostDataAccessSQL {
             const queryFilterAndPage = 'SELECT * FROM post WHERE title ILIKE $1 OR description ILIKE $1 ORDER BY title LIMIT $3 OFFSET $2';
             let result = yield db_1.default.query(query);
             // let limit, offset;
-            if (result.rows.length === 0) {
-                throw new Error(`No posts found`);
-            }
             // Filtering and Paging
             if (text && (from || to)) {
                 result = (yield db_1.default.query(queryFilterAndPage, [`%${text}%`, from, to]));
             }
             // Paging
-            if (from || to && !text) {
+            if ((from || to) && !text) {
                 if (from === undefined || to === undefined) {
                     throw new Error('from and to must both be defined for paging');
                 }
@@ -48,6 +45,9 @@ class PostDataAccessSQL {
             // filtering
             if (text && !(from || to)) {
                 result = (yield db_1.default.query(queryFilter, [`%${text}%`]));
+            }
+            if (result.rows.length === 0) {
+                throw new Error(`No posts found`);
             }
             return result.rows;
         });
@@ -92,7 +92,9 @@ class PostDataAccessSQL {
         return __awaiter(this, void 0, void 0, function* () {
             const query = 'SELECT COUNT(*) FROM post';
             const result = yield db_1.default.query(query);
-            return +result;
+            ;
+            console.log(result.row);
+            return result.count;
         });
     }
 }
