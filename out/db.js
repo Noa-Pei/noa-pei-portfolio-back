@@ -8,4 +8,11 @@ const pool = new pg_1.Pool({
     password: 'watermelon',
     port: 5432,
 });
+// const pool = new Pool({
+//     user: 'fcpxedhm',
+//     host: 'rogue.db.elephantsql.com',
+//     database: 'noa-pei-portfolio',
+//     password: 'NqRi4HXzM-hIhtUZitM-_HSZuleHxXFH',
+//     port: 5432,
+// });
 exports.default = pool;
