@@ -21,6 +21,7 @@ exports.default = pool;
 //     password: 'watermelon',
 //     port: 5432,
 // });
+// export default pool;
 // const pool = new Pool({
 //     user: 'fcpxedhm',
 //     host: 'rogue.db.elephantsql.com',

@@ -15,20 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostDataAccessSQL = void 0;
 const db_1 = __importDefault(require("../db"));
 class PostDataAccessSQL {
-    addPost(post) {
+    add(post) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = 'INSERT INTO post (title, description, body) VALUES ($1, $2, $3)';
-            yield db_1.default.query(query, [post.title, post.description, post.body]);
+            const query = 'INSERT INTO post (title, description, body, posted_by) VALUES ($1, $2, $3, $4)';
+            yield db_1.default.query(query, [post.title, post.description, post.body, post.posted_by]);
         });
     }
-    getALLPosts(text, from, to) {
+    getALL(text, from, to) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = 'SELECT id, title, description FROM post ORDER BY title';
             const queryPaging = 'SELECT * FROM post ORDER BY title LIMIT $2 OFFSET $1';
             const queryFilter = 'SELECT * FROM post WHERE title ILIKE $1 OR description ILIKE $1 ORDER BY title';
             const queryFilterAndPage = 'SELECT * FROM post WHERE title ILIKE $1 OR description ILIKE $1 ORDER BY title LIMIT $3 OFFSET $2';
             let result = yield db_1.default.query(query);
-            // let limit, offset;
             // Filtering and Paging
             if (text && (from || to)) {
                 result = (yield db_1.default.query(queryFilterAndPage, [`%${text}%`, from, to]));
@@ -38,8 +37,6 @@ class PostDataAccessSQL {
                 if (from === undefined || to === undefined) {
                     throw new Error('from and to must both be defined for paging');
                 }
-                // limit = to - from + 1;
-                // offset = from - 1;
                 result = (yield db_1.default.query(queryPaging, [from, to]));
             }
             // filtering
@@ -52,7 +49,7 @@ class PostDataAccessSQL {
             return result.rows;
         });
     }
-    getPost(postId) {
+    get(postId) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = 'SELECT * FROM post WHERE id = $1';
             const result = yield db_1.default.query(query, [postId]);
@@ -62,7 +59,7 @@ class PostDataAccessSQL {
             return result.rows[0];
         });
     }
-    updatePost(postId, updateData) {
+    update(postId, updateData) {
         return __awaiter(this, void 0, void 0, function* () {
             let query = 'UPDATE post SET ';
             const updates = [];
@@ -79,22 +76,13 @@ class PostDataAccessSQL {
             }
         });
     }
-    deletePost(postId) {
+    delete(postId) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = 'DELETE FROM post WHERE id = $1';
             const result = yield db_1.default.query(query, [postId]);
             if (result.rowCount === 0) {
                 throw new Error(`Post with ID ${postId} not found`);
             }
-        });
-    }
-    countAllPosts() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const query = 'SELECT COUNT(*) FROM post';
-            const result = yield db_1.default.query(query);
-            ;
-            console.log(result.row);
-            return result.count;
         });
     }
 }

@@ -1,4 +1,4 @@
-import Post from '../Models/Post';
+import Post from '../src/Models/Post';
 
 class InMemoryDB {
     private static instance: InMemoryDB;
