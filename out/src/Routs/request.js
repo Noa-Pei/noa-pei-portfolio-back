@@ -32,3 +32,4 @@ appRouter.post('/', function (req, res, next) {
     });
 });
 exports.default = appRouter;
+// redirect_uri: 'http://localhost:3000/callback' 

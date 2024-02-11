@@ -24,6 +24,15 @@ class UserBL {
             }
         });
     }
+    getALLUsers(text, from, to) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const Users = yield this.userDataAccess.getALL(text, from, to);
+            if (!Users) {
+                throw new Error(`Posts not found`);
+            }
+            return Users;
+        });
+    }
     getUser(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const Post = yield this.userDataAccess.get(userId);

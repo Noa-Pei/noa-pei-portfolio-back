@@ -1,5 +1,6 @@
 import { DataAccess } from '../DAL/DataAccess';
 import User from '../Models/User';
+import { UserDataAccessSQL } from '../DAL/UserDataAccessSQL';
 
 
 export class UserBL {
@@ -15,6 +16,14 @@ export class UserBL {
         } catch (error) {
             throw new Error(`Unable to add User: ${(error as Error).message}`);
         }
+    }
+
+    async getALLUsers(text?: string, from?: number, to?: number): Promise<Partial<User>[]> {
+        const Users = await this.userDataAccess.getALL(text, from, to);
+        if (!Users) {
+            throw new Error(`Posts not found`);
+        }
+        return Users;
     }
 
     async getUser(userId: number): Promise<User> {

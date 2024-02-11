@@ -22,6 +22,7 @@ function getUserData(access_token) {
         const response = yield fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`);
         const data = yield response.json();
         console.log(data);
+        return data;
     });
 }
 appRouter.get('/', function (req, res, next) {
@@ -36,10 +37,8 @@ appRouter.get('/', function (req, res, next) {
             const user = oAuth2Client.credentials;
             console.log('Credentials', user);
             const userData = yield getUserData(user.access_token);
-            // res.status(200).json({ user });
-            // res.sendStatus(201).end();
-            // res.json(userData);
-            return res.redirect('http://localhost:3000');
+            res.status(200).send({ user, userData });
+            // return res.redirect('http://localhost:3000');
         }
         catch (err) {
             console.log('Error with sign-in with Google');
@@ -47,3 +46,5 @@ appRouter.get('/', function (req, res, next) {
     });
 });
 exports.default = appRouter;
+// res.sendStatus(201).end();
+// res.json(userData);

@@ -26,8 +26,7 @@ class PostBL {
     }
     getALLPosts(text, from, to) {
         return __awaiter(this, void 0, void 0, function* () {
-            const sqlDataAccess = this.postDataAccess;
-            const Posts = yield sqlDataAccess.getALL(text, from, to);
+            const Posts = yield this.postDataAccess.getALL(text, from, to);
             if (!Posts) {
                 throw new Error(`Posts not found`);
             }

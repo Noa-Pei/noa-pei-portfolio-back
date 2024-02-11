@@ -16,7 +16,6 @@ const express_1 = __importDefault(require("express"));
 const PostController_1 = require("../Controllers/PostController");
 const PostBL_1 = require("../BL/PostBL");
 const PostDataAccessSQL_1 = require("../DAL/PostDataAccessSQL");
-// import { PostDataAccessInMemory } from '../DAL/PostDataAccessInMemory';
 const router = express_1.default.Router();
 const postController = new PostController_1.PostController(new PostBL_1.PostBL(new PostDataAccessSQL_1.PostDataAccessSQL()));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.addPost(req, res); }));
@@ -24,6 +23,4 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () { r
 router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.getPost(req, res); }));
 router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.updatePost(req, res); }));
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield postController.deletePost(req, res); }));
-// router.get('/count', async (req: Request, res: Response) => await postController.countAllPosts(req,res));
 exports.default = router;
-// const postController = new PostController(new PostBL(new PostDataAccessInMemory()));

@@ -21,10 +21,24 @@ class UserController {
     addUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userData = req.body;
-            const user = new User_1.default(userData.u_id, userData.first_name, userData.surname);
+            const user = new User_1.default(userData.u_id, userData.first_name, userData.surname, userData.email);
             try {
                 yield this.userBL.addUser(user);
                 res.status(201).send({ message: `User created successfully` });
+            }
+            catch (error) {
+                res.status(400).send(error.message);
+            }
+        });
+    }
+    getALLUsers(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const text = req.query.text;
+                const from = parseInt(req.query.from);
+                const to = parseInt(req.query.to);
+                const posts = yield this.userBL.getALLUsers(text, from, to);
+                res.status(200).send(posts);
             }
             catch (error) {
                 res.status(400).send(error.message);

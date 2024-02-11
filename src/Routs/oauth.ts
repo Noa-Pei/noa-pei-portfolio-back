@@ -9,6 +9,7 @@ async function getUserData(access_token: string){
     const response = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`);
     const data = await response.json();
     console.log(data);
+    return data;
 }
 
 appRouter.get('/', async function (req: Request, res: Response, next){
@@ -26,16 +27,19 @@ appRouter.get('/', async function (req: Request, res: Response, next){
         const user = oAuth2Client.credentials;
         console.log('Credentials', user)
         const userData = await getUserData(user.access_token!);
-        // res.status(200).json({ user });
-        // res.sendStatus(201).end();
-        // res.json(userData);
-        return res.redirect('http://localhost:3000');
+        res.status(200).send({ user, userData });
+        // return res.redirect('http://localhost:3000');
     }catch(err){
         console.log('Error with sign-in with Google')
     }
 });
 
 export default appRouter;
+
+
+        // res.sendStatus(201).end();
+        // res.json(userData);
+
 
 
 

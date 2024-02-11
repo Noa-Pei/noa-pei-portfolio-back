@@ -10,7 +10,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(activityLogger);
-// const port = 3005;
 const port = process.env.PORT || 3006;
 
 app.use("/posts", postsRoute);

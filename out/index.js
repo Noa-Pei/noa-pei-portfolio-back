@@ -14,7 +14,6 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(activityLogger_1.default);
-// const port = 3005;
 const port = process.env.PORT || 3006;
 app.use("/posts", postsRoutes_1.default);
 app.use("/users", userRoutes_1.default);

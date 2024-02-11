@@ -12,12 +12,26 @@ export class UserController {
 
     async addUser(req: Request, res: Response): Promise<void> {
         const userData = req.body;
-        const user = new User(userData.u_id, userData.first_name, userData.surname);
+        const user = new User(userData.u_id, userData.first_name, userData.surname, userData.email);
         try {
             await this.userBL.addUser(user);
             res.status(201).send({ message: `User created successfully` });
         } catch (error) {
             res.status(400).send((error as Error).message);
+        }
+    }
+
+    async getALLUsers(req: Request, res: Response): Promise<void> {
+        try {
+            const text = req.query.text as string;
+            const from = parseInt(req.query.from as string); 
+            const to = parseInt(req.query.to as string);
+
+            const posts = await this.userBL.getALLUsers(text, from, to);
+        
+            res.status(200).send(posts);  
+        } catch (error) {
+            res.status(400).send((error as Error).message); 
         }
     }
 
@@ -51,15 +65,4 @@ export class UserController {
             res.status(400).send((error as Error).message);
         }
     }
-
-    // async countAllPosts(req: Request, res: Response): Promise<void> {
-    //     try {      
-    //         const postsCount = await this.postBL.countAllPosts();
-    //         console.log(postsCount)
-    //         res.status(200).send({postsCount});
-        
-    //     } catch (error) {
-    //         res.status(400).send((error as Error).message); 
-    //     }
-    // }
 }

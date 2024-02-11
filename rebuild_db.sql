@@ -15,6 +15,22 @@ CREATE TABLE post
 
 INSERT INTO post (title, description, body, posted_by)
 VALUES 
-    ('My First Post', 'A short post to test things out', 'This is my first post on my new blog!', 1),
+    ('Noolis First Post', 'A short post to test things out', 'This is my first post on my new blog!', 1),
     ('Another Post', 'The second post is always harder', 'Coming up with things to write about is challenging!', 1),
-    ('Guest Post', 'A visiting author writes on my blog', 'This is a guest post from another writer!', 2);
+    ('Guest Post', 'A visiting author writes on my blog', 'This is a post from another writer!', 2),
+    ('Post by a New Writer', 'Another author writes on my blog', 'Getting popular ;)', 3);
+
+DROP TABLE IF EXISTS public.user;
+CREATE TABLE "user"
+(
+    u_id serial NOT NULL PRIMARY KEY,
+    first_name character varying NOT NULL,
+    surname character varying NOT NULL, 
+    email character varying(255) NOT NULL
+);
+
+INSERT INTO "user" (first_name, surname, email)
+VALUES 
+    ('nooli', 'peis', 'nool@yahoo.com'),
+    ('nuli', 'pei', 'nul@hotmail.com'),
+    ('noali', 'peis', 'noal@aol.com');

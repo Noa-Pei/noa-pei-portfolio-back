@@ -17,23 +17,14 @@ const db_1 = __importDefault(require("../../db"));
 class UserDataAccessSQL {
     add(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = 'INSERT INTO "user" (first_name, surname) VALUES ($1, $2)';
-            yield db_1.default.query(query, [user.first_name, user.surname]);
+            const query = 'INSERT INTO "user" (first_name, surname, email) VALUES ($1, $2, $3)';
+            yield db_1.default.query(query, [user.first_name, user.surname, user.email]);
         });
     }
     getALL(text, from, to) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = 'SELECT u_id, first_name, surname FROM public.user ORDER BY surname';
-            // const queryFilterAndPage = 'SELECT * FROM post WHERE user.surname ILIKE $1 ORDER BY post.title LIMIT $3 OFFSET $2';
+            const query = 'SELECT email FROM public.user';
             let result = yield db_1.default.query(query);
-            // // Filtering and Paging
-            // if(text && (from || to)) {
-            //     result = (await pool.query(queryFilterAndPage, [`%${text}%`, from, to]));
-            // }
-            // // filtering
-            // if (text && !(from || to)) {
-            //     result = (await pool.query(queryFilter, [`%${text}%`]));   
-            // }
             if (result.rows.length === 0) {
                 throw new Error(`No users found`);
             }

@@ -14,8 +14,8 @@ export class PostDataAccessSQL implements DataAccess <Post>{
     async getALL(text?: string, from?: number, to?: number):Promise<Partial<Post>[]>{
         const query = 'SELECT id, title, description FROM post ORDER BY title';
         const queryPaging = 'SELECT * FROM post ORDER BY title LIMIT $2 OFFSET $1';
-        const queryFilter = 'SELECT * FROM post WHERE title ILIKE $1 OR description ILIKE $1 ORDER BY title';
-        const queryFilterAndPage = 'SELECT * FROM post WHERE title ILIKE $1 OR description ILIKE $1 ORDER BY title LIMIT $3 OFFSET $2';
+        const queryFilter = 'SELECT * FROM post "P" inner join "user" U ON "P".posted_by = U.u_id WHERE "P".title ILIKE $1 OR "P".description ILIKE $1 OR U.surname ILIKE $1 ORDER BY "P".title';
+        const queryFilterAndPage = 'SELECT * FROM post "P" inner join "user" U ON "P".posted_by = U.u_id WHERE "P".title ILIKE $1 OR "P".description ILIKE $1 OR U.surname ILIKE $1 ORDER BY "P".title LIMIT $3 OFFSET $2';
         
         let result = await pool.query(query);
 
@@ -83,11 +83,4 @@ export class PostDataAccessSQL implements DataAccess <Post>{
             throw new Error(`Post with ID ${postId} not found`);
         }
     }
-
-    // async countAll(): Promise<Number> {
-    //     const query = 'SELECT COUNT(*) FROM post';
-    //     const result = await pool.query(query) as QueryResultRow;;
-    //     console.log(result.row);
-    //     return result.count;
-    // }
 }

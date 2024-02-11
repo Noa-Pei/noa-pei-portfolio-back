@@ -23,16 +23,13 @@ export class PostController {
 
     async getALLPosts(req: Request, res: Response): Promise<void> {
         try {
-
             const text = req.query.text as string;
             const from = parseInt(req.query.from as string); 
             const to = parseInt(req.query.to as string);
 
-        
             const posts = await this.postBL.getALLPosts(text, from, to);
         
-            res.status(200).send(posts);
-        
+            res.status(200).send(posts);  
         } catch (error) {
             res.status(400).send((error as Error).message); 
         }
@@ -68,15 +65,4 @@ export class PostController {
             res.status(400).send((error as Error).message);
         }
     }
-
-    // async countAllPosts(req: Request, res: Response): Promise<void> {
-    //     try {      
-    //         const postsCount = await this.postBL.countAllPosts();
-    //         console.log(postsCount)
-    //         res.status(200).send({postsCount});
-        
-    //     } catch (error) {
-    //         res.status(400).send((error as Error).message); 
-    //     }
-    // }
 }

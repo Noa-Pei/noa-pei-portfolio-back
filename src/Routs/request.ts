@@ -27,3 +27,5 @@ appRouter.post('/', async function(req: Request, res: Response, next) {
 });
 
 export default appRouter;
+
+        // redirect_uri: 'http://localhost:3000/callback' 

@@ -5,30 +5,20 @@ import {QueryResultRow} from 'pg';
 
 export class UserDataAccessSQL implements DataAccess <User>{
     async add(user: User){
-        const query = 'INSERT INTO "user" (first_name, surname) VALUES ($1, $2)';
-        await pool.query(query, [user.first_name, user.surname]);
+        const query = 'INSERT INTO "user" (first_name, surname, email) VALUES ($1, $2, $3)';
+        await pool.query(query, [user.first_name, user.surname, user.email]);
     }
 
     async getALL(text?: string, from?: number, to?: number):Promise<Partial<User>[]>{
-        const query = 'SELECT u_id, first_name, surname FROM public.user ORDER BY surname';
-        // const queryFilterAndPage = 'SELECT * FROM post WHERE user.surname ILIKE $1 ORDER BY post.title LIMIT $3 OFFSET $2';
+        const query = 'SELECT email FROM public.user';
         
         let result = await pool.query(query);
-
-        // // Filtering and Paging
-        // if(text && (from || to)) {
-        //     result = (await pool.query(queryFilterAndPage, [`%${text}%`, from, to]));
-        // }
-        
-        // // filtering
-        // if (text && !(from || to)) {
-        //     result = (await pool.query(queryFilter, [`%${text}%`]));   
-        // }
 
         if (result.rows.length === 0) {
             throw new Error(`No users found`);
         }
-        return result.rows;  
+
+        return result.rows;
     }
 
     async get(userId: number): Promise<User> {
