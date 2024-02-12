@@ -31,12 +31,12 @@ class UserDataAccessSQL {
             return result.rows;
         });
     }
-    get(userId) {
+    getUserByLoginInfo(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = 'SELECT * FROM public.user WHERE u_id = $1';
-            const result = yield db_1.default.query(query, [userId]);
+            const query = 'SELECT * FROM public.user WHERE email = $1';
+            const result = yield db_1.default.query(query, [email]);
             if (result.rows.length === 0) {
-                throw new Error(`User with ID ${userId} not found`);
+                throw new Error(`User with email ${email} not found`);
             }
             return result.rows[0];
         });

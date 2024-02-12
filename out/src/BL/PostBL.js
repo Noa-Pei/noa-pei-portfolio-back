@@ -35,7 +35,8 @@ class PostBL {
     }
     getPost(postId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const Post = yield this.postDataAccess.get(postId);
+            const postDataAccessSQL = this.postDataAccess;
+            const Post = yield postDataAccessSQL.get(postId);
             if (!Post) {
                 throw new Error(`Post with ID ${postId} not found`);
             }

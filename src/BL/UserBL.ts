@@ -26,12 +26,13 @@ export class UserBL {
         return Users;
     }
 
-    async getUser(userId: number): Promise<User> {
-        const Post = await this.userDataAccess.get(userId);
-        if (!Post) {
-            throw new Error(`User with ID ${userId} not found`);
+    async getUserByLoginInfo(email: string): Promise<User> {
+        const userDataAccessSQL = this.userDataAccess as UserDataAccessSQL;
+        const User = await userDataAccessSQL.getUserByLoginInfo(email);
+        if (!User) {
+            throw new Error(`User with email ${email} not found`);
         }
-        return Post;
+        return User;
     }
 
     async updateUser(userId: number, updateData: Partial<User>): Promise<void> {

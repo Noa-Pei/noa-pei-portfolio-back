@@ -32,7 +32,7 @@ describe('Posts API', () => {
   });
 
   it('should filter posts by surname', async () => {
-    const surname = 'peis'; 
+    const surname = 'pei'; 
 
     const res = await request(app).get(`/posts?text=${surname}`);
     
@@ -52,7 +52,6 @@ describe('Posts API', () => {
     expect(res.body.length).toBeLessThanOrEqual(2); 
     expect(res.body[0].title).toContain(title);
   });
-
 
   it('should get a singular post', async () => {
     const res = await request(app).get(`/posts/${postId}`);
@@ -82,12 +81,13 @@ describe('Posts API', () => {
 describe('Users API', () => {
 
   let userId: number = 1;
+  let email: string = 'test@email.com';
 
   beforeAll(() => {
     execSync('npm run rebuild_db');
   });
 
-  it('should add anew user to DB', async () => {  
+  it('should add a new user to DB', async () => {  
     const res = await request(app)
       .post('/users')
       .send({
@@ -108,9 +108,9 @@ describe('Users API', () => {
   });
 
   it('should get a specific user', async () => {
-    const res = await request(app).get(`/users/${userId}`);
+    const res = await request(app).get(`/users/${email}`);
     expect(res.status).toBe(200); 
-    expect(res.body.u_id).toBe(userId);
+    expect(res.body.email).toBe(email);
   });
 
   it('should update a specific user', async () => {

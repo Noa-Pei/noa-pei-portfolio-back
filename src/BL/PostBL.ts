@@ -26,7 +26,8 @@ export class PostBL {
     }
 
     async getPost(postId: number): Promise<Post> {
-        const Post = await this.postDataAccess.get(postId);
+        const postDataAccessSQL = this.postDataAccess as PostDataAccessSQL;
+        const Post = await postDataAccessSQL.get(postId);
         if (!Post) {
             throw new Error(`Post with ID ${postId} not found`);
         }

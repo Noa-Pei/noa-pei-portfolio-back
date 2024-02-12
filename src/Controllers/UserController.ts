@@ -34,11 +34,10 @@ export class UserController {
             res.status(400).send((error as Error).message); 
         }
     }
-
-    async getUser(req: Request, res: Response): Promise<void> {
-        const userId = +req.params.u_id;
+    async getUserByLoginInfo(req: Request, res: Response): Promise<void> {
+        const email = req.params.email;
         try {
-            const user = await this.userBL.getUser(userId);
+            const user = await this.userBL.getUserByLoginInfo(email);
             res.status(200).send(user);
         } catch(error) {
             res.status(400).send((error as Error).message);

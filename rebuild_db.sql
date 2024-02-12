@@ -31,6 +31,6 @@ CREATE TABLE "user"
 
 INSERT INTO "user" (first_name, surname, email)
 VALUES 
-    ('nooli', 'peis', 'nool@yahoo.com'),
+    ('nooli', 'peiser', 'nool@yahoo.com'),
     ('nuli', 'pei', 'nul@hotmail.com'),
-    ('noali', 'peis', 'noal@aol.com');
+    ('noali', 'ser', 'noal@aol.com');

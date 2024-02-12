@@ -39,7 +39,7 @@ describe('Posts API', () => {
         expect(Array.isArray(res.body)).toBeTruthy();
     }));
     it('should filter posts by surname', () => __awaiter(void 0, void 0, void 0, function* () {
-        const surname = 'peis';
+        const surname = 'pei';
         const res = yield (0, supertest_1.default)(index_1.default).get(`/posts?text=${surname}`);
         expect(res.status).toBe(200);
         expect(res.body.length).toBeGreaterThan(0);
@@ -76,10 +76,11 @@ describe('Posts API', () => {
 });
 describe('Users API', () => {
     let userId = 1;
+    let email = 'test@email.com';
     beforeAll(() => {
         (0, child_process_1.execSync)('npm run rebuild_db');
     });
-    it('should add anew user to DB', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('should add a new user to DB', () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield (0, supertest_1.default)(index_1.default)
             .post('/users')
             .send({
@@ -97,9 +98,9 @@ describe('Users API', () => {
         expect(Array.isArray(res.body)).toBeTruthy();
     }));
     it('should get a specific user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield (0, supertest_1.default)(index_1.default).get(`/users/${userId}`);
+        const res = yield (0, supertest_1.default)(index_1.default).get(`/users/${email}`);
         expect(res.status).toBe(200);
-        expect(res.body.u_id).toBe(userId);
+        expect(res.body.email).toBe(email);
     }));
     it('should update a specific user', () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield (0, supertest_1.default)(index_1.default)

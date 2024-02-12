@@ -33,13 +33,14 @@ class UserBL {
             return Users;
         });
     }
-    getUser(userId) {
+    getUserByLoginInfo(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            const Post = yield this.userDataAccess.get(userId);
-            if (!Post) {
-                throw new Error(`User with ID ${userId} not found`);
+            const userDataAccessSQL = this.userDataAccess;
+            const User = yield userDataAccessSQL.getUserByLoginInfo(email);
+            if (!User) {
+                throw new Error(`User with email ${email} not found`);
             }
-            return Post;
+            return User;
         });
     }
     updateUser(userId, updateData) {

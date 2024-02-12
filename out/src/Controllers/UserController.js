@@ -45,11 +45,11 @@ class UserController {
             }
         });
     }
-    getUser(req, res) {
+    getUserByLoginInfo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userId = +req.params.u_id;
+            const email = req.params.email;
             try {
-                const user = yield this.userBL.getUser(userId);
+                const user = yield this.userBL.getUserByLoginInfo(email);
                 res.status(200).send(user);
             }
             catch (error) {

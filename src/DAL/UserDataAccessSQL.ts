@@ -21,14 +21,14 @@ export class UserDataAccessSQL implements DataAccess <User>{
         return result.rows;
     }
 
-    async get(userId: number): Promise<User> {
-        const query = 'SELECT * FROM public.user WHERE u_id = $1';
-        const result = await pool.query(query, [userId]);
+    async getUserByLoginInfo(email: string): Promise<User> {
+        const query = 'SELECT * FROM public.user WHERE email = $1';
+        const result = await pool.query(query, [email]);
 
         if (result.rows.length === 0) {
-            throw new Error(`User with ID ${userId} not found`);
+            throw new Error(`User with email ${email} not found`);
         }
-        return result.rows[0];        
+        return result.rows[0];
     }
 
     async update(userId: number, updateData: Partial<User>): Promise<void> {
